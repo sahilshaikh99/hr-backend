@@ -32,10 +32,12 @@ jobs:
           MONGODB_URI: ${{ secrets.ENV_MONGODB_URI }}
           PORT: ${{ secrets.ENV_PORT }}
           JWT_SECRET: ${{ secrets.ENV_JWT_SECRET }}
+          FRONTEND_URL: ${{ secrets.ENV_FRONTEND_URL }}
         run: |
           docker run -d -p 5000:5000 \
             --name backend-container \
             -e MONGODB_URI="${{ env.MONGODB_URI }}" \
             -e PORT="${{ env.PORT }}" \
             -e JWT_SECRET="${{ env.JWT_SECRET }}" \
+            -e FRONTEND_URL="${{ env.FRONTEND_URL }}" \
             sahijsha/backend

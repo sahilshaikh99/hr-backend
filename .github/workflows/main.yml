@@ -34,7 +34,8 @@ jobs:
           JWT_SECRET: ${{ secrets.ENV_JWT_SECRET }}
         run: |
           docker run -d -p 5000:5000 \
-            -e MONGODB_URI=${{ env.MONGODB_URI }} \
-            -e PORT=${{ env.PORT }} \
-            -e JWT_SECRET=${{ env.JWT_SECRET }} \
-            --name backend-container sahijsha/backend
+            --name backend-container \
+            -e MONGODB_URI="${{ env.MONGODB_URI }}" \
+            -e PORT="${{ env.PORT }}" \
+            -e JWT_SECRET="${{ env.JWT_SECRET }}" \
+            sahijsha/backend

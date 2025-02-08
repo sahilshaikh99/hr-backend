@@ -39,5 +39,5 @@ jobs:
             -e MONGODB_URI="${{ env.MONGODB_URI }}" \
             -e PORT="${{ env.PORT }}" \
             -e JWT_SECRET="${{ env.JWT_SECRET }}" \
-            -e FRONTEND_URL="${{ env.FRONTEND_URL }}" \
+            -e FRONTEND_URL="${{ env.ENV_FRONTEND_URL }}" \
             sahijsha/backend

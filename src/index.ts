@@ -1,3 +1,5 @@
+import fs from 'fs';
+import https from 'https';
 import app from './app.js';
 import { connectDB } from './db/db.js';
 import dotenv from 'dotenv';
@@ -10,11 +12,20 @@ const startServer = async () => {
     // Connect to MongoDB
     await connectDB();
 
-    // Start the server
+    // SSL options - specify paths to your certificate and key files
+    const options = {
+      cert: fs.readFileSync('./ssl/server.crt'), // Path to your SSL certificate
+      key: fs.readFileSync('./ssl/server.key'), // Path to your SSL private key
+    };
+
+    // Set the port from environment variable or default to 5000
     const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`Server is running at http://localhost:${PORT}`);
+
+    // Create HTTPS server
+    https.createServer(options, app).listen(PORT, () => {
+      console.log(`Server is running at https://localhost:${PORT}`);
     });
+
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
@@ -33,4 +44,4 @@ process.on('unhandledRejection', (error) => {
   process.exit(1);
 });
 
-startServer(); 
+startServer();

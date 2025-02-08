@@ -18,9 +18,17 @@ RUN npm install -g typescript
 # Compile TypeScript to JavaScript
 RUN npm run build
 
+
+# Copy app code and SSL certificates
+COPY . .
+COPY ssl/server.crt /app/server.crt
+COPY ssl/server.key /app/server.key
+
+
 # Expose the application port
 EXPOSE 5000
 
 # Start the app using the built JavaScript files
 CMD ["npm","run","start"]
+
 

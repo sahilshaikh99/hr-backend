@@ -1,3 +1,5 @@
+FROM node:20.12.0
+
 # Set working directory inside container
 WORKDIR /app
 
@@ -21,3 +23,4 @@ EXPOSE 5000
 
 # Start the app using the built JavaScript files
 CMD ["npm","run","start"]
+

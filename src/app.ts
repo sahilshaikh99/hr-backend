@@ -8,14 +8,12 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Configure CORS options
 const corsOptions = {
-  origin: process.env.ENV_FRONTEND_URL || 'http://localhost:3000',
-  credentials: true, // This allows cookies/authentication headers
+  origin: '*', // Allow all origins for testing purposes
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
-
 // Apply CORS middleware before your routes
 app.use(cors(corsOptions));
 
@@ -27,6 +25,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/employees', employeeRoutes);
+app.use('/api/s3', s3Routes);
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

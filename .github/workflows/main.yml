@@ -27,5 +27,14 @@ jobs:
         run: docker pull sahijsha/backend:latest
       - name: Delete old container
         run: docker rm -f backend-container
-      - name: Run docker container
-        run: docker run -d -p 5000:5000 --name backend-container sahijsha/backend
+      - name: Run docker container with environment variables
+        env:
+          MONGODB_URI: ${{ secrets.ENV_MONGODB_URI) }}
+          PORT: ${{ secrets.ENV_PORT }}
+          JWT_SECRET: ${{ secrets.ENV_JWT_SECRET }}
+        run: |
+          docker run -d -p 5000:5000 \
+            -e MONGODB_URI=${{ env.ENV_MONGODB_URI }} \
+            -e PORT=${{ env.ENV_PORT }} \
+            -e JWT_SECRET=${{ env.ENV_JWT_SECRET }} \
+            --name backend-container sahijsha/backend
